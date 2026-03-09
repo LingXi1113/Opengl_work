@@ -12,16 +12,15 @@ def generate_terrain(filename, width, depth, resolution):
             x_pos = (x / resolution - 0.5) * width
             z_pos = (z / resolution - 0.5) * depth
             
-            # Height function (Simple waves to simulate hills)
-            # You can make this more complex with Perlin noise
-            y_pos = 3.0 * math.sin(x_pos * 0.2) + 2.0 * math.cos(z_pos * 0.15) + 1.0 * math.sin(z_pos * 0.5)
+            Height function (Flat ground)
+            y_pos = 0.0
 
             vertices.append((x_pos, y_pos, z_pos))
             
             # UVs (Repeat texture 10 times across the terrain)
-            uvs.append((x / resolution * 10.0, z / resolution * 10.0))
+            # uvs.append((x / resolution * 10.0, z / resolution * 10.0))
             
-            # Normals (Simplified, pointing up-ish)
+            Normals (Simplified, pointing up-ish)
             # For perfect lighting, we should calculate cross product of neighbors
             normals.append((0.0, 1.0, 0.0)) 
 
@@ -34,7 +33,7 @@ def generate_terrain(filename, width, depth, resolution):
             bottom_left = (z + 1) * (resolution + 1) + x
             bottom_right = bottom_left + 1
 
-            # Two triangles per quad
+            Two triangles per quad
             # OBJ indices are 1-based
             faces.append((top_left + 1, bottom_left + 1, top_right + 1))
             faces.append((top_right + 1, bottom_left + 1, bottom_right + 1))

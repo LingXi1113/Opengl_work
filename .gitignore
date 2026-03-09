@@ -4,3 +4,27 @@ build/
 out/
 
 .vs/
+
+# Extra Ignores
+bin/
+build/
+.vs/
+external/
+release/
+Models/
+*.obj
+*.fbx
+*.dll
+*.exe
+*.pdb
+*.mp3
+*.ttf
+*.png
+*.jpg
+*.jpeg
+
+
+# Extra
+*.ilk
+external/assimp_build/
+
