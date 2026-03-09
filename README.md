@@ -1,52 +1,30 @@
-# learnopengl.com code repository
-Contains code samples for all chapters of Learn OpenGL and [https://learnopengl.com](https://learnopengl.com). 
+﻿# OpenGL 3D Rendering Project
 
-## Windows building
-All relevant libraries are found in /libs and all DLLs found in /dlls (pre-)compiled for Windows. 
-The CMake script knows where to find the libraries so just run CMake script and generate project of choice.
+这是一个基于著名的 [LearnOpenGL](https://learnopengl.com/) 教程框架并在其基础上衍生扩展的 3D 图形渲染工程。
 
-Keep in mind the supplied libraries were generated with a specific compiler version which may or may not work on your system (generating a large batch of link errors). In that case it's advised to build the libraries yourself from the source.
+## ✨ 主要功能与特性 (Features)
 
-## Linux building
-First make sure you have CMake, Git, and GCC by typing as root (sudo) `apt-get install g++ cmake git` and then get the required packages:
-Using root (sudo) and type `apt-get install libsoil-dev libglm-dev libassimp-dev libglew-dev libglfw3-dev libxinerama-dev libxcursor-dev  libxi-dev libfreetype-dev libgl1-mesa-dev xorg-dev` .
+* **核心渲染架构**：包含基础的 OpenGL 渲染管线、模型加载 (Assimp) 以及摄像机漫游系统。
+* **自定义场景渲染 (New Scene)**：扩展了自定义的大型场景漫游，包括城市 (city_pbr)、房屋 (house) 等复杂的室外场景。
+* **骨骼蒙皮动画 (Skeletal Animation)**：结合 Assimp 解析和着色器 (skinned.vs / skinned.fs)，项目支持加载并播放带骨架的复杂 3D 模型动画（如带各种动作的游戏人物）。
+* **程序化地形 (Procedural Terrain)**：支持通过 python 脚本生成并渲染广阔的地形环境 (	errain.obj)。
+* **高级光照与环境**：实现了基于物理的渲染着色器 (PBR) 支持，以及完整的天空盒 (Skybox) 系统。
 
-**Build through CMake-gui:** The source directory is LearnOpenGL and specify the build directory as LearnOpenGL/build. Creating the build directory within LearnOpenGL is important for linking to the resource files (it also will be ignored by Git). Hit configure and specify your compiler files (Unix Makefiles are recommended), resolve any missing directories or libraries, and then hit generate. Navigate to the build directory (`cd LearnOpenGL/build`) and type `make` in the terminal. This should generate the executables in the respective chapter folders.
+## 🛠️ 构建与运行指南 (Build & Run)
 
-**Build through Cmake command line:**
-```
-cd /path/to/LearnOpenGL
-mkdir build && cd build
-cmake ..
-cmake --build .
-```
+本项目使用 **CMake** 进行构建，并已预留了所有需要的外部依赖 (GLFW, GLAD, GLM, Assimp等静态库或头文件)。
 
-Note that CodeBlocks or other IDEs may have issues running the programs due to problems finding the shader and resource files, however it should still be able to generate the executables. To work around this problem it is possible to set an environment variable to tell the tutorials where the resource files can be found. The environment variable is named LOGL_ROOT_PATH and may be set to the path to the root of the LearnOpenGL directory tree. For example:
+### Windows 环境下编译
 
-    `export LOGL_ROOT_PATH=/home/user/tutorials/LearnOpenGL`
+1. 确保你的电脑已安装 **CMake** 和现代的 C++ 编译器（如 Visual Studio 2022）。
+2. 在项目根目录下打开终端，执行以下命令：
+   \\\powershell
+   mkdir build
+   cd build
+   cmake ..
+   cmake --build . --config Release
+   \\\
+3. **运行**: 构建完成后，可执行文件通常位于 elease 目录或者 uild 目录下，直接运行即可（如双击 un_new_scene.bat 脚本快捷启动）。
 
-Running `ls $LOGL_ROOT_PATH` should list, among other things, this README file and the resources directory.
-
-## Mac OS X building
-Building on Mac OS X is fairly simple:
-```
-brew install cmake assimp glm glfw freetype
-cmake -S . -B build
-cmake --build build -j$(sysctl -n hw.logicalcpu)
-```
-## Create Xcode project on Mac platform
-Thanks [@caochao](https://github.com/caochao):
-After cloning the repo, go to the root path of the repo, and run the command below:
-```
-mkdir xcode
-cd xcode
-cmake -G Xcode ..
-```
-
-## Glitter
-Polytonic created a project called [Glitter](https://github.com/Polytonic/Glitter) that is a dead-simple boilerplate for OpenGL. 
-Everything you need to run a single LearnOpenGL Project (including all libraries) and just that; nothing more. 
-Perfect if you want to follow along with the chapters, without the hassle of having to manually compile and link all third party libraries!
-
-## Ports
-Check out [@srcres258](https://github.com/srcres258)'s port in Rust [here](https://github.com/srcres258/learnopengl-rust/).
+---
+*版权声明：本项目核心管线参考了 Joey de Vries 的 [LearnOpenGL](https://github.com/JoeyDeVries/LearnOpenGL)，项目内部分模型和贴图归原作者所有。*
